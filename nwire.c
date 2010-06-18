@@ -53,6 +53,7 @@ int main()
 
 	endwin();
 
+	return 0;
 }
 
 void ninterface()
@@ -74,6 +75,10 @@ void ninterface()
 			case 'l': cursor_x++; break;
 			case 'k': cursor_y--; break;
 			case 'j': cursor_y++; break;
+			case 'y': cursor_y--; cursor_x--; break;
+			case 'u': cursor_y--; cursor_x++; break;
+			case 'b': cursor_y++; cursor_x--; break;
+			case 'n': cursor_y++; cursor_x++; break;
 
 			case '1': case '2': case '3': case '4':
 				  map_write(grid, cursor_x, cursor_y, key-'0');
