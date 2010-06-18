@@ -83,6 +83,13 @@ void ninterface()
 			case '1': case '2': case '3': case '4':
 				  map_write(grid, cursor_x, cursor_y, key-'0');
 				  break;
+
+			case KEY_UP: y_offset -= 10; break;
+			case KEY_DOWN: y_offset += 10; break;
+			case KEY_LEFT: x_offset -= 10; break;
+			case KEY_RIGHT: x_offset += 10; break;
+
+			case 'C': x_offset=0; y_offset=0; break;
 		}
 
 		if(cursor_x < 0) cursor_x=0;
