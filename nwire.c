@@ -39,6 +39,10 @@ int main()
 	start_color();
 	use_default_colors();
 
+/*	mousemask(REPORT_MOUSE_POSITION|BUTTON1_PRESSED|BUTTON1_PRESSED, (mmask_t *) NULL); */
+	mousemask(ALL_MOUSE_EVENTS, (mmask_t *) NULL);
+	mouseinterval(0);
+
 	init_pair(EMPTY, COLOR_BLACK, COLOR_BLACK);
 	init_pair(ELECTRON_HEAD, COLOR_RED, COLOR_RED);
 	init_pair(ELECTRON_TAIL, COLOR_BLUE, COLOR_BLUE);
@@ -90,6 +94,36 @@ void ninterface()
 			case KEY_RIGHT: x_offset += 10; break;
 
 			case 'C': x_offset=0; y_offset=0; break;
+
+			case KEY_MOUSE:
+
+#define IF_MOUSE(ep, m) ((ep.bstate & m)==m)
+				{
+					MEVENT event;
+					if(getmouse(&event) == ERR) {
+fprintf(stderr, "error\n");
+fflush(stderr);
+break;
+				}
+					if(IF_MOUSE(event, BUTTON1_PRESSED)) {
+fprintf(stderr, "button pressed\n");
+					}
+					if(IF_MOUSE(event, BUTTON1_RELEASED)) {
+fprintf(stderr, "button released\n");
+					}
+					if(IF_MOUSE(event, BUTTON2_PRESSED)) {
+fprintf(stderr, "button2 pressed\n");
+					}
+					if(IF_MOUSE(event, BUTTON2_RELEASED)) {
+fprintf(stderr, "button2 released\n");
+					}
+					if(IF_MOUSE(event, REPORT_MOUSE_POSITION)) {
+fprintf(stderr, "moved\n");
+					}
+
+					fflush(stderr);
+				}
+				break;
 		}
 
 		if(cursor_x < 0) cursor_x=0;
